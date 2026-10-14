@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H&M Fashion Store</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #222;
+      background: #fff;
+    }
+
+    header {
+      background: white;
+      padding: 20px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+    }
+
+    .logo {
+      color: #e50010;
+      font-size: 35px;
+      font-weight: bold;
+      letter-spacing: -3px;
+    }
+
+    nav a {
+      color: #222;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 14px;
+    }
+
+    .hero {
+      min-height: 420px;
+      background: #eee6df;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 70px);
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 28px;
+      background: #222;
+      color: white;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .collection {
+      padding: 50px 7%;
+    }
+
+    .collection h2 {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 30px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .product img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      background: #f4f0ed;
+    }
+
+    .product h3 {
+      margin-top: 12px;
+      font-size: 16px;
+    }
+
+    .product p {
+      margin: 8px 0 12px;
+      color: #555;
+    }
+
+    footer {
+      background: #f5f5f5;
+      padding: 30px;
+      text-align: center;
+      font-size: 13px;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 650px) {
+      header {
+        padding: 16px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      nav a {
+        margin-left: 0;
+        margin-right: 12px;
+      }
+
+      .products {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .product img {
+        height: 240px;
+      }
+
+      .collection {
+        padding: 35px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">H&M</div>
+
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#dresses">Dresses</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <h1>FASHION FOR EVERYONE</h1>
+    <p>Discover your style. Wear your confidence.</p>
+    <a href="#dresses" class="btn">SHOP NOW</a>
+  </section>
+
+  <section class="collection" id="dresses">
+    <h2>NEW COLLECTION</h2>
+
+    <div class="products">
+
+      <div class="product">
+        <img
+          src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=600&q=80"
+          alt="Elegant dress">
+        <h3>Elegant Dress</h3>
+        <p>₱799.00</p>
+        <button class="btn"
+          onclick="addToCart('Elegant Dress', 799)">
+          Add to Cart
+        </button>
+      </div>
+
+      <div class="product">
+        <img
+          src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80"
+          alt="Summer dress">
+        <h3>Summer Dress</h3>
+        <p>₱599.00</p>
+        <button class="btn"
+          onclick="addToCart('Summer Dress', 599)">
+          Add to Cart
+        </button>
+      </div>
+
+      <div class="product">
+        <img
+          src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80"
+          alt="Fashion dress">
+        <h3>Classic Dress</h3>
+        <p>₱899.00</p>
+        <button class="btn"
+          onclick="addToCart('Classic Dress', 899)">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+
+    <div style="text-align:center; margin-top:35px">
+      <h2>Your Shopping Cart</h2>
+      <p id="cart">Your cart is empty.</p>
+      <p id="total" style="margin:15px"></p>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p>Fashion Store Demo | Contact: hello@example.com</p>
+    <p style="margin-top:10px">
+      © 2026 Fashion Store. All rights reserved.
+    </p>
+  </footer>
+
+  <script>
+    let cart = [];
+    
+    function addToCart(name, price) {
+      cart.push({ name, price });
+
+      document.getElementById("cart").innerHTML =
+        cart.map(item =>
+          item.name + " - ₱" + item.price.toFixed(2)
+        ).join("<br>");
+
+      const total = cart.reduce(
+        (sum, item) => sum + item.price, 0
+      );
+
+      document.getElementById("total").textContent =
+        "Total: ₱" + total.toFixed(2);
+    }
+  </script>
+
+</body>
+</html>
